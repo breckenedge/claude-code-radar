@@ -30,35 +30,30 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| Claude Code | Adopt | The reference agentic coding CLI. Largest ecosystem, most active development. |
-| Cursor | Hold | IDE-native AI coding. Market fragmented. CLI-first devs migrating to Claude Code + VS Code + Copilot. |
-| GitHub Copilot | Adopt | Ubiquitous autocomplete layer. Complements Claude Code well for inline suggestions. |
-| OpenAI Codex CLI | Adopt | Invaluable for multi-agent reviews. `codex review` + Claude Code gives you cross-model code review out of the box. |
-| Gemini Code Assist | Trial | Google's entry. Deep integration with Google Cloud tooling. |
-| Aider | Trial | The OG. Open-source, git-native, model-agnostic. Still actively maintained. Important fallback if a major provider has issues. |
-| Cline | Hold | VS Code agent. Community fragmented into forks (Roo Code, Kilo Code). Eclipsed by Claude Code + Copilot. |
-| Cowork (Anthropic) | Assess | Claude Code adapted for general-purpose computing. Very early. |
-| Windsurf (Codeium) | Hold | Acquired, direction uncertain. Users migrating to alternatives. |
+| [Claude Code](https://github.com/anthropics/claude-code) | Adopt | The reference agentic coding CLI. Largest ecosystem, most active development. |
+| [GitHub Copilot](https://github.com/features/copilot) | Adopt | Ubiquitous autocomplete layer. Complements Claude Code well for inline suggestions. |
+| [OpenAI Codex CLI](https://github.com/openai/codex) | Adopt | Invaluable for multi-agent reviews. `codex review` + Claude Code gives you cross-model code review out of the box. |
+| [Cowork](https://claude.com/blog/cowork-research-preview) | Assess | Claude Code adapted for general-purpose computing. Very early. |
 
 ### Plugins & Extensions
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| MCP (Model Context Protocol) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. |
-| Claude Code Plugin System | Trial | 9,000+ plugins across marketplaces. API still evolving. |
-| Anthropic Official Plugin Directory | Trial | Curated, blessed plugins. Smaller but higher quality bar. |
+| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. |
+| [Claude Code Plugin System](https://github.com/anthropics/claude-code/blob/main/plugins/README.md) | Trial | 9,000+ plugins across marketplaces. API still evolving. |
+| [Anthropic Official Plugin Directory](https://github.com/anthropics/claude-plugins-official) | Trial | Curated, blessed plugins. Smaller but higher quality bar. |
 | ClaudePluginHub | Trial | Largest third-party marketplace. Discovery UX maturing. |
-| Firecrawl Plugin | Trial | Niche. Web scraping/crawling MCP server. Useful if your workflow needs live web data. |
-| Agent Skills (Anthropic) | Adopt | Open standard for distributing specialized agent capabilities. Already integrated into VS Code extensions and plugin ecosystem. |
-| Claude Agent SDK | Trial | Same engine as Claude Code, exposed as a Python/TypeScript library. For building custom agents programmatically. Microsoft Agent Framework integration. |
-| Claude-Plugins.dev | Assess | Alternative community marketplace. Smaller, less vetted. |
+| [Firecrawl Plugin](https://www.firecrawl.dev) | Trial | Niche. Web scraping/crawling MCP server. Useful if your workflow needs live web data. |
+| [Agent Skills](https://github.com/anthropics/skills) | Adopt | Open standard for distributing specialized agent capabilities. Already integrated into VS Code extensions and plugin ecosystem. |
+| [Claude Agent SDK](https://github.com/anthropics/claude-agent-sdk-python) | Trial | Same engine as Claude Code, exposed as a Python/TypeScript library. For building custom agents programmatically. Microsoft Agent Framework integration. |
+| [Claude-Plugins.dev](https://claude-plugins.dev) | Assess | Alternative community marketplace. Smaller, less vetted. |
 
 ### Techniques & Patterns
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| CLAUDE.md Project Instructions | Adopt | De facto standard for project-level agent configuration. |
-| Hooks (shell commands on events) | Adopt | Stable, well-documented. Standard for CI/build integration. |
+| [CLAUDE.md Project Instructions](https://code.claude.com/docs/en/claude-md) | Adopt | De facto standard for project-level agent configuration. |
+| [Hooks](https://code.claude.com/docs/en/hooks) | Adopt | Stable, well-documented. Standard for CI/build integration. |
 | Multi-agent Task Delegation | Trial | Spawning sub-agents for parallel work. Effective but needs orchestration discipline. |
 | Specialized Plugin Stacks | Trial | Separate agent configs per domain (frontend, backend, security). Gaining traction. |
 | README-driven Development | Trial | Using Claude Code to iterate on design docs before implementation. Meta. |
@@ -77,12 +72,12 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| VS Code + Claude Code Extension | Trial | Multi-agent support as of Feb 2026. Promising but buggy — extension host crashes, memory issues, rough terminal-to-UI handoff. |
-| JetBrains + Claude Code Plugin | Trial | Beta quality. Functional but less mature than VS Code integration. |
-| GitHub Actions + Claude Code | Assess | CI/CD integration for automated code review, PR generation. Buggy in practice. Not reliable enough for Trial yet. |
-| Xcode + Claude (via MCP) | Assess | Apple's MCP adoption in Xcode 26.3. Very early but significant for Claude Code users building native apps. |
+| [VS Code + Claude Code Extension](https://code.claude.com/docs/en/vs-code) | Trial | Multi-agent support as of Feb 2026. Promising but buggy — extension host crashes, memory issues, rough terminal-to-UI handoff. |
+| [JetBrains + Claude Code Plugin](https://plugins.jetbrains.com/plugin/27310-claude-code-beta-) | Trial | Beta quality. Functional but less mature than VS Code integration. |
+| [GitHub Actions + Claude Code](https://github.com/anthropics/claude-code-action) | Assess | CI/CD integration for automated code review, PR generation. Buggy in practice. Not reliable enough for Trial yet. |
+| [Xcode + Claude (via MCP)](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk) | Assess | Apple's MCP adoption in Xcode 26.3. Very early but significant for Claude Code users building native apps. |
 | Cloud-hosted Agent Fleets | Assess | Running multiple Claude Code instances in cloud for parallel tasks. Coming up fast but still early for small teams. |
-| Claude Max / Pro Subscriptions | Adopt | The economics of agent coding. Most individual devs and small teams pay through Max or Pro plans. |
+| [Claude Max / Pro Subscriptions](https://claude.com/pricing) | Adopt | The economics of agent coding. Most individual devs and small teams pay through Max or Pro plans. |
 
 ---
 
