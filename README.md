@@ -39,12 +39,12 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. |
+| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. MCP Apps extension now live, allowing tools to return interactive UI components. |
 | [Claude Code Plugin System](https://github.com/anthropics/claude-code/blob/main/plugins/README.md) | Trial | 9,000+ plugins across marketplaces. API still evolving. |
 | [Anthropic Official Plugin Directory](https://github.com/anthropics/claude-plugins-official) | Trial | Curated, blessed plugins. Smaller but higher quality bar. |
 | [ClaudePluginHub](https://www.claudepluginhub.com/) | Trial | Largest third-party marketplace. Discovery UX maturing. |
 | [Agent Skills](https://github.com/anthropics/skills) | Adopt | Open standard for distributing specialized agent capabilities. Already integrated into VS Code extensions and plugin ecosystem. |
-| [Claude Agent SDK](https://github.com/anthropics/claude-agent-sdk-python) | Trial | Same engine as Claude Code, exposed as a Python/TypeScript library. For building custom agents programmatically. Microsoft Agent Framework integration. |
+| [Claude Agent SDK](https://github.com/anthropics/claude-agent-sdk-python) | Trial | Rebranded from "Claude Code SDK" to reflect broader vision beyond coding. Same engine as Claude Code, exposed as a Python/TypeScript library. Microsoft Agent Framework integration. |
 | [Claude-Plugins.dev](https://claude-plugins.dev) | Assess | Alternative community marketplace. Smaller, less vetted. |
 
 ### Techniques & Patterns
@@ -53,7 +53,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 |------|------|-------|
 | [CLAUDE.md Project Instructions](https://code.claude.com/docs/en/claude-md) | Adopt | De facto standard for project-level agent configuration. |
 | [Hooks](https://code.claude.com/docs/en/hooks) | Adopt | Stable, well-documented. Standard for CI/build integration. |
-| Multi-agent Task Delegation | Trial | Spawning sub-agents for parallel work. Effective but needs orchestration discipline. |
+| Multi-agent Task Delegation | Trial | Spawning sub-agents for parallel work. Effective but needs orchestration discipline. Agent Teams research preview (CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1) adds team leads, teammates, and shared task lists. |
 | Specialized Plugin Stacks | Trial | Separate agent configs per domain (frontend, backend, security). Gaining traction. |
 | README-driven Development | Trial | Using Claude Code to iterate on design docs before implementation. Meta. |
 | Headless / CI Mode | Trial | Running Claude Code non-interactively via `claude -p`. Growing adoption but auth is a pain point — `setup-token` scoping is [buggy](https://github.com/anthropics/claude-code/issues/23703), most teams fall back to API keys in CI. |
@@ -73,7 +73,8 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 |------|------|-------|
 | [VS Code + Claude Code Extension](https://code.claude.com/docs/en/vs-code) | Trial | Multi-agent support as of Feb 2026. Promising but buggy — extension host crashes, memory issues, rough terminal-to-UI handoff. |
 | [JetBrains + Claude Code Plugin](https://plugins.jetbrains.com/plugin/27310-claude-code-beta-) | Trial | Beta quality. Functional but less mature than VS Code integration. |
-| [GitHub Actions + Claude Code](https://github.com/anthropics/claude-code-action) | Assess | CI/CD integration for automated code review, PR generation. Buggy in practice. Not reliable enough for Trial yet. |
+| [GitHub Actions + Claude Code](https://github.com/anthropics/claude-code-action) | Trial | CI/CD integration for automated code review, PR generation. Version 1.0 released with simplified configuration. Setup via /install-github-app command. |
+| [GitHub Agent HQ](https://github.blog/news-insights/company-news/pick-your-agent-use-claude-and-codex-on-agent-hq/) | Assess | Multi-agent platform announced Feb 4, 2026. Claude and Codex now available alongside GitHub Copilot for Pro+ and Enterprise users. Very early but signals broader platform shift. |
 | [Xcode + Claude (via MCP)](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk) | Assess | Apple's MCP adoption in Xcode 26.3. Very early but significant for Claude Code users building native apps. |
 | Cloud-hosted Agent Fleets | Assess | Running multiple Claude Code instances in cloud for parallel tasks. Coming up fast but still early for small teams. |
 | [Claude Max / Pro Subscriptions](https://claude.com/pricing) | Adopt | The economics of agent coding. Most individual devs and small teams pay through Max or Pro plans. |
@@ -84,7 +85,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 Each **blip** is a tool, plugin, technique, or platform relevant to Claude Code developers. Its **ring** reflects our assessment of its current maturity and adoption. **Notes** provide brief context.
 
-This is opinionated and point-in-time (last updated: February 2026). Blips move between rings as the ecosystem evolves.
+This is opinionated and point-in-time (last updated: February 9, 2026). Blips move between rings as the ecosystem evolves.
 
 ## What's On vs Off the Radar
 
