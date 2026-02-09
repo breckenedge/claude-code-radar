@@ -56,7 +56,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | Multi-agent Task Delegation | Trial | Spawning sub-agents for parallel work. Effective but needs orchestration discipline. |
 | Specialized Plugin Stacks | Trial | Separate agent configs per domain (frontend, backend, security). Gaining traction. |
 | README-driven Development | Trial | Using Claude Code to iterate on design docs before implementation. Meta. |
-| Headless / CI Mode | Trial | Running Claude Code non-interactively in pipelines. Growing adoption. |
+| Headless / CI Mode | Trial | Running Claude Code non-interactively via `claude -p`. Growing adoption but auth is a pain point — `setup-token` scoping is [buggy](https://github.com/anthropics/claude-code/issues/23703), most teams fall back to API keys in CI. |
 | Prompt Caching & Context Management | Adopt | Essential. Built into the platform. Every serious user manages context and caching. |
 | Human-in-the-loop Agent Review | Trial | Reviewing agent-generated code before committing. Most teams already do this informally. |
 | /compact & Context Window Management | Adopt | Essential power-user technique. Everyone hits context limits; knowing when to compact is a core skill. |
