@@ -38,6 +38,7 @@ jobs:
             - No hype stats, no marketing language
             - Link new blips to their official URLs
             - Keep notes concise
+            - Whenever you add or update a blip, add the source URLs that informed your decision to the Bibliography section in README.md. Each entry should be a numbered list item with a markdown link and a brief note explaining what the source informed. Do not duplicate existing entries.
 
             Open a PR with your changes. Title it "Weekly radar update — [date]".
             If nothing meaningful changed, still open a PR with a summary of what you checked, then immediately close it with `gh pr close`.

@@ -112,6 +112,21 @@ This radar is maintained through community input. To suggest changes:
 
 Movement between rings should be justified with observable signals, not hype.
 
+## Bibliography
+
+Sources referenced when placing or updating blips on this radar.
+
+1. [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar) — Format and methodology inspiration
+2. [Claude Code GitHub](https://github.com/anthropics/claude-code) — Primary source for Claude Code features, releases, and issues
+3. [Model Context Protocol](https://modelcontextprotocol.io) — MCP specification and adoption
+4. [Claude Code Action](https://github.com/anthropics/claude-code-action) — GitHub Actions integration for Claude Code
+5. [Claude Agent SDK](https://github.com/anthropics/claude-agent-sdk-python) — Agent SDK releases and documentation
+6. [VS Code Claude Code Extension](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code) — Extension changelog and release notes
+7. [JetBrains Claude Code Plugin](https://plugins.jetbrains.com/plugin/27310-claude-code-beta-) — Plugin changelog and user reviews
+8. [Anthropic News: Apple Xcode + Claude Agent SDK](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk) — Xcode MCP integration announcement
+9. [Claude Code setup-token scoping issue](https://github.com/anthropics/claude-code/issues/23703) — Known bug informing Headless/CI Mode ring placement
+10. [Agent Skills GitHub](https://github.com/anthropics/skills) — Skills standard specification and adoption
+
 ## License
 
 MIT
