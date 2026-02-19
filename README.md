@@ -39,7 +39,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. Recent security vulnerabilities found in some MCP servers — vet servers before use. |
+| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. Recent security vulnerabilities (CVE-2025-68145, CVE-2025-68143, CVE-2025-68144) found in some MCP servers — vet servers before use. |
 | [Claude Code Plugin System](https://github.com/anthropics/claude-code/blob/main/plugins/README.md) | Trial | 9,000+ plugins across marketplaces. API still evolving. |
 | [Anthropic Official Plugin Directory](https://github.com/anthropics/claude-plugins-official) | Trial | Curated, blessed plugins. Smaller but higher quality bar. |
 | [ClaudePluginHub](https://www.claudepluginhub.com/) | Trial | Largest third-party marketplace. Discovery UX maturing. |
@@ -53,9 +53,8 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 |------|------|-------|
 | [CLAUDE.md Project Instructions](https://code.claude.com/docs/en/claude-md) | Adopt | De facto standard for project-level agent configuration. |
 | [Hooks](https://code.claude.com/docs/en/hooks) | Adopt | Stable, well-documented. Standard for CI/build integration. |
-| Multi-agent Task Delegation | Trial | Spawning sub-agents for parallel work. Effective but needs orchestration discipline. |
-| [Agent Teams](https://code.claude.com/docs/en/agent-teams) | Assess | Experimental multi-agent collaboration feature (Feb 2026). Token-intensive, requires CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1. Very early. |
-| Fast Mode | Trial | Research preview for Opus 4.6. Up to 2.5x faster output generation. Available via /fast command. Promotional pricing through Feb 16, 2026. |
+| Multi-agent Task Delegation | Trial | Spawning sub-agents for parallel work. Effective but needs orchestration discipline. Anthropic's experimental [Agent Teams](https://code.claude.com/docs/en/agent-teams) feature (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`, Feb 2026) formalizes this pattern — but it's token-intensive and very early stage. |
+| Fast Mode | Trial | Research preview for Opus 4.6. Up to 2.5x faster output generation. Available via `/fast` command. Functional and available, though in preview. |
 | Specialized Plugin Stacks | Trial | Separate agent configs per domain (frontend, backend, security). Gaining traction. |
 | README-driven Development | Trial | Using Claude Code to iterate on design docs before implementation. Meta. |
 | Headless / CI Mode | Trial | Running Claude Code non-interactively via `claude -p`. Growing adoption but auth is a pain point — `setup-token` scoping is [buggy](https://github.com/anthropics/claude-code/issues/23703), most teams fall back to API keys in CI. |
@@ -113,6 +112,24 @@ This radar is maintained through community input. To suggest changes:
 3. Discuss in the issue before submitting a PR
 
 Movement between rings should be justified with observable signals, not hype.
+
+## Bibliography
+
+Sources referenced when placing or updating blips on this radar.
+
+1. [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar) — Format and methodology inspiration
+2. [Claude Code GitHub](https://github.com/anthropics/claude-code) — Primary source for Claude Code features, releases, and issues
+3. [Model Context Protocol](https://modelcontextprotocol.io) — MCP specification and adoption
+4. [Claude Code Action](https://github.com/anthropics/claude-code-action) — GitHub Actions integration for Claude Code
+5. [Claude Agent SDK](https://github.com/anthropics/claude-agent-sdk-python) — Agent SDK releases and documentation
+6. [VS Code Claude Code Extension](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code) — Extension changelog and release notes
+7. [JetBrains Claude Code Plugin](https://plugins.jetbrains.com/plugin/27310-claude-code-beta-) — Plugin changelog and user reviews
+8. [Anthropic News: Apple Xcode + Claude Agent SDK](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk) — Xcode MCP integration announcement
+9. [Claude Code setup-token scoping issue](https://github.com/anthropics/claude-code/issues/23703) — Known bug informing Headless/CI Mode ring placement
+10. [Agent Skills GitHub](https://github.com/anthropics/skills) — Skills standard specification and adoption
+11. [MCP Security Resources February 2026](https://adversa.ai/blog/top-mcp-security-resources-february-2026/) — CVE-2025-68145, CVE-2025-68143, CVE-2025-68144 in MCP servers
+12. [VS Code Claude Code Changelog](https://claudelog.com/claude-code-changelog/) — Extension bug fix tracking (terminal scroll, slash commands, duplicate sessions)
+13. [What's New in Claude Code: Opus 4.6 and Agent Teams](https://zircote.com/blog/2026/02/whats-new-in-claude-code-opus-4-6/) — Fast Mode and Agent Teams research preview details
 
 ## License
 
