@@ -126,6 +126,7 @@ Sources referenced when placing or updating blips on this radar.
 8. [Anthropic News: Apple Xcode + Claude Agent SDK](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk) — Xcode MCP integration announcement
 9. [Claude Code setup-token scoping issue](https://github.com/anthropics/claude-code/issues/23703) — Known bug informing Headless/CI Mode ring placement
 10. [Agent Skills GitHub](https://github.com/anthropics/skills) — Skills standard specification and adoption
+11. [r/ClaudeAI](https://www.reddit.com/r/ClaudeAI/) — Community discussion and sentiment around Claude Code features, pain points, and adoption patterns
 
 ## License
 
