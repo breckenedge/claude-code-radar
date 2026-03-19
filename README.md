@@ -68,6 +68,8 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems. Mixing models to balance cost and quality. |
 | Agent-driven Test Generation | Trial | Using Claude Code to generate tests, then human review. Accelerates coverage without blind trust. |
 | Session Replay / Audit Trails | Assess | Tracking what agents changed and why. Important for team accountability. Tooling still immature. |
+| Voice Mode | Assess | Native `/voice` command (hold Space to record, Whisper STT) shipped in v2.1.71 (Mar 2026) with gradual rollout to 5% of users. Has known bugs in early builds — transcription pipeline disabled in some releases. Community MCP alternatives (e.g., VoiceMode MCP) are more stable today. Too early for daily use but worth watching. |
+| [Scheduled Tasks (/loop)](https://code.claude.com/docs/en/scheduled-tasks) | Assess | `/loop` command (v2.1.71, Mar 2026) runs prompts on a cron schedule within a session — turns Claude Code into a background worker. Session-scoped (stops when terminal closes), max 50 tasks per session, 3-day auto-expiry. For persistent scheduling, pair with GitHub Actions (`schedule:` trigger) or headless `claude -p`. Opens up new autonomous workflow patterns; too early to recommend broadly. |
 | Vibe Coding | Adopt | Mainstream since late 2025. The default way most developers start new projects and prototypes. |
 | Auto-Memory (/memory) | Assess | Claude automatically saves useful context to persistent memory across sessions (v2.1.59+). Managed with the `/memory` command. Reduces context setup overhead for recurring projects. Behavior is automatic — review and prune regularly to avoid stale context drift. |
 
@@ -80,7 +82,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | [GitHub Actions + Claude Code](https://github.com/anthropics/claude-code-action) | Trial | CI/CD integration for automated code review and PR generation. Reached v1.0 GA (Feb 2026) with breaking changes from beta; migration guide available. Simplified configuration, automatic mode detection, structured JSON outputs. Worth adopting for greenfield CI workflows now. |
 | [Xcode + Claude (via MCP)](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk) | Assess | Apple's MCP adoption in Xcode 26.3. Very early but significant for Claude Code users building native apps. |
 | Cloud-hosted Agent Fleets | Assess | Running multiple Claude Code instances in cloud for parallel tasks. Coming up fast but still early for small teams. |
-| [Claude Max / Pro Subscriptions](https://claude.com/pricing) | Adopt | The economics of agent coding. Most individual devs and small teams pay through Max or Pro plans. As of March 2026: Claude Code is bundled with every Team plan seat; Opus 4.6's 1M token context window is now active by default for Max, Team, and Enterprise plans. |
+| [Claude Max / Pro / Team Subscriptions](https://claude.com/pricing) | Adopt | The economics of agent coding. Individual devs and small teams pay through Max or Pro plans. As of Jan 2026, Claude Code is included with every Team plan standard seat ($20/month). As of March 2026: Opus 4.6's 1M token context window is now active by default for Max, Team, and Enterprise plans. |
 | [Claude in Chrome](https://code.claude.com/docs/en/chrome) | Assess | Browser automation from Claude Code via the Claude Chrome extension (Beta). Claude can navigate pages, click, fill forms, read console logs, and capture screenshots directly from the CLI or VS Code. Works with any site you're already logged into. Paid-only; supports Chrome and Edge. Interesting for build-test-debug loops. |
 
 ---
@@ -144,6 +146,12 @@ Sources referenced when placing or updating blips on this radar.
 21. [VentureBeat: Anthropic rolls out Code Review for Claude Code (March 9, 2026)](https://venturebeat.com/technology/anthropic-rolls-out-code-review-for-claude-code-as-it-sues-over-pentagon) — Additional Code Review launch context
 22. [MCP Blog: 2026 MCP Roadmap](https://blog.modelcontextprotocol.io/posts/2026-mcp-roadmap/) — MCP 2026 priorities informing MCP blip notes update
 23. [Claude Code releases v2.1.72–v2.1.76 (March 10–14, 2026)](https://github.com/anthropics/claude-code/releases) — ExitWorktree tool, worktree.sparsePaths, PostCompact/Elicitation hooks, MCP Elicitation, 1M context default informing multiple blip updates
+24. [Claude Code v2.1.71 release](https://github.com/anthropics/claude-code/releases/tag/v2.1.71) — Source for /loop command, cron scheduling, and voice mode rollout details
+25. [Claude Code scheduled tasks docs](https://code.claude.com/docs/en/scheduled-tasks) — Official documentation for /loop and CronCreate/CronList/CronDelete tools
+26. [Anthropic: Claude Code and new admin controls for business plans](https://www.anthropic.com/news/claude-code-on-team-and-enterprise) — Jan 2026 announcement that Claude Code is included with every Team plan standard seat
+27. [The Decoder: Anthropic turns Claude Code into a background worker](https://the-decoder.com/anthropic-turns-claude-code-into-a-background-worker-with-local-scheduled-tasks/) — Coverage of scheduled tasks / /loop feature informing Assess placement
+28. [Voice mode "no speech detected" GitHub issue #30904](https://github.com/anthropics/claude-code/issues/30904) — Known bug (hardcoded disabled flag) informing Voice Mode Assess placement
+29. [Releasebot: Claude Code March 2026 release notes](https://releasebot.io/updates/anthropic/claude-code) — Aggregated March 2026 changelog informing HTTP hooks and voice mode notes
 
 ## License
 
