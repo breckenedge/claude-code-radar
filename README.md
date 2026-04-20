@@ -30,7 +30,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| [Claude Code](https://github.com/anthropics/claude-code) | Adopt | The reference agentic coding CLI. Largest ecosystem, most active development. npm install deprecated; native installer (no Node.js/npm dependency) is now recommended — run `claude install` or use the install script. |
+| [Claude Code](https://github.com/anthropics/claude-code) | Adopt | The reference agentic coding CLI. Largest ecosystem, most active development. npm install deprecated; native installer (no Node.js/npm dependency) is now recommended — run `claude install` or use the install script. Desktop app (Mac/Windows) redesigned April 2026 with multiple concurrent sessions in a sidebar, integrated terminal, file editor, and rebuilt diff viewer. `/ultrareview` (v2.1.111) runs comprehensive parallel code review from the CLI. |
 | [GitHub Copilot](https://github.com/features/copilot) | Adopt | Ubiquitous autocomplete layer. Complements Claude Code well for inline suggestions. Claude is now available as a Copilot agent for Pro+ and Enterprise customers (Feb 2026). |
 | [OpenAI Codex CLI](https://github.com/openai/codex) | Adopt | Invaluable for multi-agent reviews. `codex review` + Claude Code gives you cross-model code review out of the box. |
 | [Cowork](https://claude.com/blog/cowork-research-preview) | Assess | Claude Code adapted for general-purpose computing. Very early. |
@@ -65,11 +65,13 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | /compact & Context Window Management | Adopt | Essential power-user technique. Everyone hits context limits; knowing when to compact is a core skill. |
 | Docker Dev Containers + Claude Code | Trial | Common local setup pattern. Reproducible, isolated agent environments. |
 | Context Hygiene / .claudeignore | Adopt | Scoping what the agent sees. Narrow git scopes, ignore patterns, workspace-per-feature. Essential for large repos. |
-| Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems. Mixing models to balance cost and quality. |
+| Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems. Mixing models to balance cost and quality. As of April 2026: Opus 4.7 is the top-end model with a new `xhigh` effort level (above `high`, below `max`); Haiku 3 retired April 19, 2026; Sonnet 4 and Opus 4 retiring June 15, 2026 — migrate to the 4.5/4.6/4.7 generation. |
 | Agent-driven Test Generation | Trial | Using Claude Code to generate tests, then human review. Accelerates coverage without blind trust. |
 | Session Replay / Audit Trails | Assess | Tracking what agents changed and why. Important for team accountability. Tooling still immature. |
 | Voice Mode | Assess | Native `/voice` command (hold Space to record, Whisper STT) shipped in v2.1.71 (Mar 2026) with gradual rollout to 5% of users. Has known bugs in early builds — transcription pipeline disabled in some releases. Community MCP alternatives (e.g., VoiceMode MCP) are more stable today. Too early for daily use but worth watching. |
-| [Scheduled Tasks (/loop)](https://code.claude.com/docs/en/scheduled-tasks) | Assess | `/loop` command (v2.1.71, Mar 2026) runs prompts on a cron schedule within a session — turns Claude Code into a background worker. Session-scoped (stops when terminal closes), max 50 tasks per session, 3-day auto-expiry. For persistent scheduling, pair with GitHub Actions (`schedule:` trigger) or headless `claude -p`. Opens up new autonomous workflow patterns; too early to recommend broadly. |
+| [Scheduled Tasks (/loop)](https://code.claude.com/docs/en/scheduled-tasks) | Assess | `/loop` command (v2.1.71, Mar 2026) runs prompts on a cron schedule within a session — turns Claude Code into a background worker. Session-scoped (stops when terminal closes), max 50 tasks per session, 3-day auto-expiry. Self-pacing supported when interval is omitted (v2.1.113). For persistent, machine-independent scheduling see **Routines** below; for CI scheduling pair with GitHub Actions. Opens up new autonomous workflow patterns; too early to recommend broadly. |
+| [Routines](https://code.claude.com/docs/en/routines) | Assess | Cloud-hosted scheduled automations running on Anthropic's infrastructure (research preview, April 2026). Includes Scheduled Routines (cron-like jobs) and API Routines (HTTP triggers). Unlike `/loop`, not tied to a local terminal session — survives machine restarts. Significant if you want persistent automation without managing your own CI. API and pricing not yet finalized. |
+| [Ultraplan](https://code.claude.com/docs/en/ultraplan) | Assess | Draft plans via CLI (`/ultraplan`), review and edit in a web editor, then execute remotely or pull back locally (early preview, April 2026). Aims to separate the plan-then-execute loop from the local terminal. Too early to assess trade-offs or reliability. |
 | Vibe Coding | Adopt | Mainstream since late 2025. The default way most developers start new projects and prototypes. |
 | Auto-Memory (/memory) | Assess | Claude automatically saves useful context to persistent memory across sessions (v2.1.59+). Managed with the `/memory` command. Reduces context setup overhead for recurring projects. Behavior is automatic — review and prune regularly to avoid stale context drift. |
 
@@ -91,7 +93,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 Each **blip** is a tool, plugin, technique, or platform relevant to Claude Code developers. Its **ring** reflects our assessment of its current maturity and adoption. **Notes** provide brief context.
 
-This is opinionated and point-in-time (last updated: 2026-03-16). Blips move between rings as the ecosystem evolves.
+This is opinionated and point-in-time (last updated: 2026-04-20). Blips move between rings as the ecosystem evolves.
 
 ## What's On vs Off the Radar
 
@@ -152,6 +154,10 @@ Sources referenced when placing or updating blips on this radar.
 27. [The Decoder: Anthropic turns Claude Code into a background worker](https://the-decoder.com/anthropic-turns-claude-code-into-a-background-worker-with-local-scheduled-tasks/) — Coverage of scheduled tasks / /loop feature informing Assess placement
 28. [Voice mode "no speech detected" GitHub issue #30904](https://github.com/anthropics/claude-code/issues/30904) — Known bug (hardcoded disabled flag) informing Voice Mode Assess placement
 29. [Releasebot: Claude Code March 2026 release notes](https://releasebot.io/updates/anthropic/claude-code) — Aggregated March 2026 changelog informing HTTP hooks and voice mode notes
+30. [9to5Mac: Anthropic adds Routines to redesigned Claude Code (April 14, 2026)](https://9to5mac.com/2026/04/14/anthropic-adds-repeatable-routines-feature-to-claude-code-heres-how-it-works/) — Source for desktop app redesign and Routines research preview blips
+31. [VentureBeat: Redesigned Claude Code desktop app and Routines (April 2026)](https://venturebeat.com/orchestration/we-tested-anthropics-redesigned-claude-code-desktop-app-and-routines-heres-what-enterprises-should-know/) — Additional context on Routines and desktop app redesign
+32. [Claude Code releases v2.1.111–v2.1.114 (April 16–18, 2026)](https://github.com/anthropics/claude-code/releases) — Source for /ultrareview, Opus 4.7 xhigh effort, /loop self-pacing, and PowerShell tool support
+33. [Anthropic Platform Release Notes (April 2026)](https://platform.claude.com/docs/en/release-notes/overview) — Claude Haiku 3 retirement, Sonnet 4/Opus 4 retirement dates, model capability updates informing Model Switching Strategies blip
 
 ## License
 
