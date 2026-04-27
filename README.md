@@ -30,7 +30,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| [Claude Code](https://github.com/anthropics/claude-code) | Adopt | The reference agentic coding CLI. Largest ecosystem, most active development. npm install deprecated; native installer (no Node.js/npm dependency) is now recommended — run `claude install` or use the install script. |
+| [Claude Code](https://github.com/anthropics/claude-code) | Adopt | The reference agentic coding CLI. Largest ecosystem, most active development. npm install deprecated; native installer (no Node.js/npm dependency) is now recommended — run `claude install` or use the install script. April 14, 2026: desktop app redesigned with integrated terminal, in-app file editor, faster diff viewer, and Mission Control sidebar for multi-session management. Process sandboxing (PID namespace isolation) added on Linux. |
 | [GitHub Copilot](https://github.com/features/copilot) | Adopt | Ubiquitous autocomplete layer. Complements Claude Code well for inline suggestions. Claude is now available as a Copilot agent for Pro+ and Enterprise customers (Feb 2026). |
 | [OpenAI Codex CLI](https://github.com/openai/codex) | Adopt | Invaluable for multi-agent reviews. `codex review` + Claude Code gives you cross-model code review out of the box. |
 | [Cowork](https://claude.com/blog/cowork-research-preview) | Assess | Claude Code adapted for general-purpose computing. Very early. |
@@ -65,7 +65,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | /compact & Context Window Management | Adopt | Essential power-user technique. Everyone hits context limits; knowing when to compact is a core skill. |
 | Docker Dev Containers + Claude Code | Trial | Common local setup pattern. Reproducible, isolated agent environments. |
 | Context Hygiene / .claudeignore | Adopt | Scoping what the agent sees. Narrow git scopes, ignore patterns, workspace-per-feature. Essential for large repos. |
-| Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems. Mixing models to balance cost and quality. |
+| Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems. Mixing models to balance cost and quality. Haiku 3 retired April 19, 2026 — use Haiku 4.5. Opus 4.7 (April 16, 2026) is the new default for agentic coding; introduces `xhigh` effort level (between `high` and `max`) accessible via `/effort`. |
 | Agent-driven Test Generation | Trial | Using Claude Code to generate tests, then human review. Accelerates coverage without blind trust. |
 | Session Replay / Audit Trails | Assess | Tracking what agents changed and why. Important for team accountability. Tooling still immature. |
 | Voice Mode | Assess | Native `/voice` command (hold Space to record, Whisper STT) shipped in v2.1.71 (Mar 2026) with gradual rollout to 5% of users. Has known bugs in early builds — transcription pipeline disabled in some releases. Community MCP alternatives (e.g., VoiceMode MCP) are more stable today. Too early for daily use but worth watching. |
@@ -79,10 +79,12 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 |------|------|-------|
 | [VS Code + Claude Code Extension](https://code.claude.com/docs/en/vs-code) | Trial | Multi-agent support as of Feb 2026. Promising but buggy — extension host crashes, memory issues, rough terminal-to-UI handoff. |
 | [JetBrains + Claude Code Plugin](https://plugins.jetbrains.com/plugin/27310-claude-code-beta-) | Trial | Beta quality. Functional but less mature than VS Code integration. |
+| [claudecode.nvim (Neovim)](https://github.com/coder/claudecode.nvim) | Assess | Community Neovim plugin using the same WebSocket MCP protocol as Anthropic's VS Code extension. Zero external dependencies; multiple implementations exist — coder/claudecode.nvim has the most complete protocol parity. Not official, but Neovim's terminal-native design pairs well with Claude Code CLI. |
 | [GitHub Actions + Claude Code](https://github.com/anthropics/claude-code-action) | Trial | CI/CD integration for automated code review and PR generation. Reached v1.0 GA (Feb 2026) with breaking changes from beta; migration guide available. Simplified configuration, automatic mode detection, structured JSON outputs. Worth adopting for greenfield CI workflows now. |
+| [Routines](https://claude.com/blog/claude-code-desktop-redesign) | Assess | Cloud-hosted automation: configure a prompt + repo + connectors once, then trigger via schedule (hourly/daily/weekly), API call, or GitHub event. Runs on Anthropic's infrastructure — progress survives terminal close, unlike /loop. Research preview as of April 14, 2026 for Pro/Max/Team/Enterprise. Opens up persistent background automation patterns without requiring a live session. |
 | [Xcode + Claude (via MCP)](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk) | Assess | Apple's MCP adoption in Xcode 26.3. Very early but significant for Claude Code users building native apps. |
 | Cloud-hosted Agent Fleets | Assess | Running multiple Claude Code instances in cloud for parallel tasks. Coming up fast but still early for small teams. |
-| [Claude Max / Pro / Team Subscriptions](https://claude.com/pricing) | Adopt | The economics of agent coding. Individual devs and small teams pay through Max or Pro plans. As of Jan 2026, Claude Code is included with every Team plan standard seat ($20/month). As of March 2026: Opus 4.6's 1M token context window is now active by default for Max, Team, and Enterprise plans. |
+| [Claude Max / Pro / Team Subscriptions](https://claude.com/pricing) | Adopt | The economics of agent coding. Individual devs and small teams pay through Max or Pro plans. As of Jan 2026, Claude Code is included with every Team plan standard seat ($20/month). As of March 2026: Opus 4.6's 1M token context window is now active by default for Max, Team, and Enterprise plans. April 2026: Opus 4.7 is the new flagship (same pricing as 4.6: $5/$25 per MTok); Max subscribers get Auto Mode on Opus 4.7. Opus 4.7 became the default for Enterprise pay-as-you-go and API users April 23. |
 | [Claude in Chrome](https://code.claude.com/docs/en/chrome) | Assess | Browser automation from Claude Code via the Claude Chrome extension (Beta). Claude can navigate pages, click, fill forms, read console logs, and capture screenshots directly from the CLI or VS Code. Works with any site you're already logged into. Paid-only; supports Chrome and Edge. Interesting for build-test-debug loops. |
 
 ---
@@ -91,7 +93,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 Each **blip** is a tool, plugin, technique, or platform relevant to Claude Code developers. Its **ring** reflects our assessment of its current maturity and adoption. **Notes** provide brief context.
 
-This is opinionated and point-in-time (last updated: 2026-03-16). Blips move between rings as the ecosystem evolves.
+This is opinionated and point-in-time (last updated: 2026-04-27). Blips move between rings as the ecosystem evolves.
 
 ## What's On vs Off the Radar
 
@@ -152,6 +154,9 @@ Sources referenced when placing or updating blips on this radar.
 27. [The Decoder: Anthropic turns Claude Code into a background worker](https://the-decoder.com/anthropic-turns-claude-code-into-a-background-worker-with-local-scheduled-tasks/) — Coverage of scheduled tasks / /loop feature informing Assess placement
 28. [Voice mode "no speech detected" GitHub issue #30904](https://github.com/anthropics/claude-code/issues/30904) — Known bug (hardcoded disabled flag) informing Voice Mode Assess placement
 29. [Releasebot: Claude Code March 2026 release notes](https://releasebot.io/updates/anthropic/claude-code) — Aggregated March 2026 changelog informing HTTP hooks and voice mode notes
+30. [Anthropic: Redesigning Claude Code on desktop for parallel agents (April 14, 2026)](https://claude.com/blog/claude-code-desktop-redesign) — Desktop redesign and Routines feature details informing Claude Code blip update and new Routines Assess blip
+31. [Anthropic: Introducing Claude Opus 4.7 (April 16, 2026)](https://www.anthropic.com/news/claude-opus-4-7) — Opus 4.7 GA, xhigh effort level, and new default model status informing Model Switching Strategies and Claude Max blip updates
+32. [coder/claudecode.nvim on GitHub](https://github.com/coder/claudecode.nvim) — Community Neovim Claude Code integration using VS Code's MCP WebSocket protocol, basis for claudecode.nvim Assess blip
 
 ## License
 
