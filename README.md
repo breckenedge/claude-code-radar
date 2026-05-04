@@ -34,6 +34,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | [GitHub Copilot](https://github.com/features/copilot) | Adopt | Ubiquitous autocomplete layer. Complements Claude Code well for inline suggestions. Claude is now available as a Copilot agent for Pro+ and Enterprise customers (Feb 2026). |
 | [OpenAI Codex CLI](https://github.com/openai/codex) | Adopt | Invaluable for multi-agent reviews. `codex review` + Claude Code gives you cross-model code review out of the box. |
 | [Cowork](https://claude.com/blog/cowork-research-preview) | Assess | Claude Code adapted for general-purpose computing. Very early. |
+| [Ultrareview](https://code.claude.com/docs/en/whats-new) | Assess | Cloud-based multi-agent bug-hunting code review, launched as public research preview (May 2026). Triggered via `/ultrareview` in the UI or `claude ultrareview [target]` CLI. Works on local branches without a GitHub remote, or pass a PR number for GitHub review. Billed per use. Distinct from Claude Code Review (which requires Team/Enterprise and posts inline GitHub comments); Ultrareview is accessible to all paid users but very early. |
 | [Claude Code Security](https://www.anthropic.com/news/claude-code-security) | Assess | AI-driven vulnerability scanning built into Claude Code web interface. Research preview for Enterprise and Team plans. Reasons about code like a human security researcher, not just pattern-matching. Found 500+ vulnerabilities in production OSS. Very early — not in your workflow yet, but worth watching. |
 | [Claude Code Review](https://www.anthropic.com/news/claude-code-review) | Assess | Multi-agent parallel PR review: spawns agents in parallel to check logic errors, boundary conditions, API misuse, auth flaws, and convention violations. A false-positive filter attempts to disprove each finding before posting inline GitHub comments. ~20 min review time, ~$15–25/review. Research preview for Team and Enterprise (GitHub only). Customizable via CLAUDE.md and a new REVIEW.md file. Launched March 9, 2026. |
 
@@ -41,12 +42,12 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. MCP Elicitation (v2.1.76, March 2026) enables servers to request structured user input mid-task via an interactive dialog. 2026 roadmap priorities: stateless Streamable HTTP transport, enterprise auth/audit, Linux Foundation governance, and MCP Apps extension for interactive UI components in conversations. |
+| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. MCP Elicitation (v2.1.76, March 2026) enables servers to request structured user input mid-task via an interactive dialog. 2026 roadmap priorities: stateless Streamable HTTP transport, enterprise auth/audit, Linux Foundation governance, and MCP Apps extension for interactive UI components in conversations. MCP Tool Search lazy loading (v2.1.113+, April 2026) defers tool schema loading until needed — can reduce context usage by up to 95% in large server setups. Use `alwaysLoad: true` per-server to opt out of deferral for servers whose tools should always be available. |
 | [Claude Code Plugin System](https://github.com/anthropics/claude-code/blob/main/plugins/README.md) | Trial | 9,000+ plugins across marketplaces. API still evolving. |
 | [Anthropic Official Plugin Directory](https://github.com/anthropics/claude-plugins-official) | Trial | Curated, blessed plugins. Smaller but higher quality bar. |
 | [ClaudePluginHub](https://www.claudepluginhub.com/) | Trial | Largest third-party marketplace. Discovery UX maturing. |
 | [Agent Skills](https://github.com/anthropics/skills) | Adopt | Open standard for distributing specialized agent capabilities. Already integrated into VS Code extensions and plugin ecosystem. |
-| [Claude Agent SDK](https://github.com/anthropics/claude-agent-sdk-python) | Trial | Same engine as Claude Code, exposed as a Python/TypeScript library. For building custom agents programmatically. Microsoft Agent Framework integration. |
+| [Claude Agent SDK](https://github.com/anthropics/claude-agent-sdk-python) | Trial | Same engine as Claude Code, exposed as a Python/TypeScript library. For building custom agents programmatically. Microsoft Agent Framework integration. Claude Managed Agents (public beta, May 2026) extends this with server-side sandboxed execution, server-sent event streaming, and persistent memory — Anthropic-hosted agent infrastructure rather than self-hosted. |
 | [Claude-Plugins.dev](https://claude-plugins.dev) | Assess | Alternative community marketplace. Smaller, less vetted. |
 
 ### Techniques & Patterns
@@ -65,7 +66,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | /compact & Context Window Management | Adopt | Essential power-user technique. Everyone hits context limits; knowing when to compact is a core skill. |
 | Docker Dev Containers + Claude Code | Trial | Common local setup pattern. Reproducible, isolated agent environments. |
 | Context Hygiene / .claudeignore | Adopt | Scoping what the agent sees. Narrow git scopes, ignore patterns, workspace-per-feature. Essential for large repos. |
-| Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems. Mixing models to balance cost and quality. |
+| Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems. Mixing models to balance cost and quality. Claude Opus 4.7 is now GA (May 2026) — resolves ~3x more production tasks than Opus 4.6 with double-digit gains in code and test quality at the same price point. Opus 4 (original) and Sonnet 4 (original) are deprecated and retire June 15, 2026; migrate to 4.6/4.7 variants. |
 | Agent-driven Test Generation | Trial | Using Claude Code to generate tests, then human review. Accelerates coverage without blind trust. |
 | Session Replay / Audit Trails | Assess | Tracking what agents changed and why. Important for team accountability. Tooling still immature. |
 | Voice Mode | Assess | Native `/voice` command (hold Space to record, Whisper STT) shipped in v2.1.71 (Mar 2026) with gradual rollout to 5% of users. Has known bugs in early builds — transcription pipeline disabled in some releases. Community MCP alternatives (e.g., VoiceMode MCP) are more stable today. Too early for daily use but worth watching. |
@@ -91,7 +92,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 Each **blip** is a tool, plugin, technique, or platform relevant to Claude Code developers. Its **ring** reflects our assessment of its current maturity and adoption. **Notes** provide brief context.
 
-This is opinionated and point-in-time (last updated: 2026-03-16). Blips move between rings as the ecosystem evolves.
+This is opinionated and point-in-time (last updated: 2026-05-04). Blips move between rings as the ecosystem evolves.
 
 ## What's On vs Off the Radar
 
@@ -152,6 +153,9 @@ Sources referenced when placing or updating blips on this radar.
 27. [The Decoder: Anthropic turns Claude Code into a background worker](https://the-decoder.com/anthropic-turns-claude-code-into-a-background-worker-with-local-scheduled-tasks/) — Coverage of scheduled tasks / /loop feature informing Assess placement
 28. [Voice mode "no speech detected" GitHub issue #30904](https://github.com/anthropics/claude-code/issues/30904) — Known bug (hardcoded disabled flag) informing Voice Mode Assess placement
 29. [Releasebot: Claude Code March 2026 release notes](https://releasebot.io/updates/anthropic/claude-code) — Aggregated March 2026 changelog informing HTTP hooks and voice mode notes
+30. [Anthropic: Introducing Claude Opus 4.7](https://www.anthropic.com/news/claude-opus-4-7) — Opus 4.7 GA announcement informing Model Switching Strategies update and Opus 4/Sonnet 4 deprecation note
+31. [Claude Code What's New](https://code.claude.com/docs/en/whats-new) — Source for Ultrareview public research preview, MCP Tool Search lazy loading, and alwaysLoad option
+32. [Claude API release notes](https://platform.claude.com/docs/en/release-notes/overview) — Claude Managed Agents public beta (sandboxing, SSE streaming, memory) informing Agent SDK blip update
 
 ## License
 
