@@ -41,8 +41,8 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. MCP Elicitation (v2.1.76, March 2026) enables servers to request structured user input mid-task via an interactive dialog. 2026 roadmap priorities: stateless Streamable HTTP transport, enterprise auth/audit, Linux Foundation governance, and MCP Apps extension for interactive UI components in conversations. |
-| [Claude Code Plugin System](https://github.com/anthropics/claude-code/blob/main/plugins/README.md) | Trial | 9,000+ plugins across marketplaces. API still evolving. |
+| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. MCP Elicitation (v2.1.76, March 2026) enables servers to request structured user input mid-task via an interactive dialog. 2026 roadmap advancing: spec RC locked May 21, 2026 (final publication July 28). RC confirms stateless HTTP (scales on plain load balancers, no sticky sessions), `ttlMs`/`cacheScope` for `tools/list` response caching, and MCP Apps and Tasks extensions for server-rendered UIs and long-running work. |
+| [Claude Code Plugin System](https://github.com/anthropics/claude-code/blob/main/plugins/README.md) | Trial | 9,000+ plugins across marketplaces. API still evolving. As of v2.1.157 (May 2026), plugins in `.claude/skills` directories auto-load without the marketplace; `claude plugin init <name>` scaffolds a new plugin. |
 | [Anthropic Official Plugin Directory](https://github.com/anthropics/claude-plugins-official) | Trial | Curated, blessed plugins. Smaller but higher quality bar. |
 | [ClaudePluginHub](https://www.claudepluginhub.com/) | Trial | Largest third-party marketplace. Discovery UX maturing. |
 | [Agent Skills](https://github.com/anthropics/skills) | Adopt | Open standard for distributing specialized agent capabilities. Already integrated into VS Code extensions and plugin ecosystem. |
@@ -54,7 +54,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | Blip | Ring | Notes |
 |------|------|-------|
 | [CLAUDE.md Project Instructions](https://code.claude.com/docs/en/claude-md) | Adopt | De facto standard for project-level agent configuration. Supply chain risk: researcher-disclosed CVEs showed malicious repos could use project-scoped config files (CLAUDE.md, .mcp.json) to trigger RCE before trust prompts appeared (CVE-2025-59536, CVE-2026-21852, patched 2025–26). Always verify repo trust before opening with Claude Code. |
-| [Hooks](https://code.claude.com/docs/en/hooks) | Adopt | Stable, well-documented. Standard for CI/build integration. Now supports four handler types: command (shell), HTTP (POST JSON to a URL), prompt (LLM-evaluated decision), and agent (subagent with tools). HTTP hooks enable webhook integrations without shell scripts. Recent additions (v2.1.76): `PostCompact` fires after context compaction; `Elicitation`/`ElicitationResult` hooks can intercept and override MCP server input requests. Note: hooks in project config files were a supply chain RCE vector (CVE-2025-59536, patched in v1.0.111+). |
+| [Hooks](https://code.claude.com/docs/en/hooks) | Adopt | Stable, well-documented. Standard for CI/build integration. Now supports four handler types: command (shell), HTTP (POST JSON to a URL), prompt (LLM-evaluated decision), and agent (subagent with tools). HTTP hooks enable webhook integrations without shell scripts. Recent additions (v2.1.76): `PostCompact` fires after context compaction; `Elicitation`/`ElicitationResult` hooks can intercept and override MCP server input requests. May 2026 additions: `MessageDisplay` hook (transform or suppress assistant text as displayed); `SessionStart` can return `reloadSkills: true` to rescan skill dirs mid-session and set the session title. 27+ distinct hook events documented as of v2.1.141+. Note: hooks in project config files were a supply chain RCE vector (CVE-2025-59536, patched in v1.0.111+). |
 | Multi-agent Task Delegation | Trial | Spawning sub-agents for parallel work. Effective but needs orchestration discipline. Native git worktree isolation (v2.1.49+) significantly reduces conflicts when running parallel agents — see Git Worktree Isolation below. |
 | Git Worktree Isolation | Trial | Running agents in isolated git worktrees with `--worktree` flag or `isolation: worktree` in agent definitions. Ships natively as of v2.1.49 (Feb 2026). Eliminates file conflicts between parallel agents; `WorktreeCreate`/`WorktreeRemove` hooks extend support to non-git VCS. `ExitWorktree` tool added (v2.1.72) for clean session teardown. `worktree.sparsePaths` setting (v2.1.76) enables git sparse-checkout integration for large monorepos. The right default for any multi-agent workload. |
 | Specialized Plugin Stacks | Trial | Separate agent configs per domain (frontend, backend, security). Gaining traction. |
@@ -65,13 +65,15 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | /compact & Context Window Management | Adopt | Essential power-user technique. Everyone hits context limits; knowing when to compact is a core skill. |
 | Docker Dev Containers + Claude Code | Trial | Common local setup pattern. Reproducible, isolated agent environments. |
 | Context Hygiene / .claudeignore | Adopt | Scoping what the agent sees. Narrow git scopes, ignore patterns, workspace-per-feature. Essential for large repos. |
-| Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems. Mixing models to balance cost and quality. |
+| Model Switching Strategies | Trial | Active lineup (June 2026): Haiku 4.5, Sonnet 4.6, Opus 4.7, Opus 4.8. **Claude Opus 4 and Sonnet 4 retire from the Anthropic API on June 15, 2026** — update any pinned model IDs. Opus 4.8 is the new default (May 28, 2026): adds high-effort mode (`/effort xhigh`) and is ~4x less likely to pass code flaws unremarked than Opus 4.7. Fast mode on Opus 4.8: 2× cost, ~2.5× speed. Haiku 4.5 for quick passes, Sonnet 4.6 for daily work, Opus 4.8 for hard problems. |
 | Agent-driven Test Generation | Trial | Using Claude Code to generate tests, then human review. Accelerates coverage without blind trust. |
 | Session Replay / Audit Trails | Assess | Tracking what agents changed and why. Important for team accountability. Tooling still immature. |
 | Voice Mode | Assess | Native `/voice` command (hold Space to record, Whisper STT) shipped in v2.1.71 (Mar 2026) with gradual rollout to 5% of users. Has known bugs in early builds — transcription pipeline disabled in some releases. Community MCP alternatives (e.g., VoiceMode MCP) are more stable today. Too early for daily use but worth watching. |
 | [Scheduled Tasks (/loop)](https://code.claude.com/docs/en/scheduled-tasks) | Assess | `/loop` command (v2.1.71, Mar 2026) runs prompts on a cron schedule within a session — turns Claude Code into a background worker. Session-scoped (stops when terminal closes), max 50 tasks per session, 3-day auto-expiry. For persistent scheduling, pair with GitHub Actions (`schedule:` trigger) or headless `claude -p`. Opens up new autonomous workflow patterns; too early to recommend broadly. |
 | Vibe Coding | Adopt | Mainstream since late 2025. The default way most developers start new projects and prototypes. |
 | Auto-Memory (/memory) | Assess | Claude automatically saves useful context to persistent memory across sessions (v2.1.59+). Managed with the `/memory` command. Reduces context setup overhead for recurring projects. Behavior is automatic — review and prune regularly to avoid stale context drift. |
+| Dynamic Workflows | Assess | Introduced in v2.1.154 (May 28, 2026). Claude generates an orchestration script that spawns tens to hundreds of background subagents for large-scale tasks — codebase-wide audits, mass migrations, cross-repository research. Higher token burn than targeted multi-agent work. Very new; reliability and cost characteristics are still being understood. |
+| Advisor Tool | Assess | Public beta (May 2026). Pairs a fast executor model with a slower, higher-intelligence advisor model that provides strategic guidance mid-generation — useful for architecture decisions and complex refactors. Announced at Code with Claude SF 2026. Too new to assess reliability or cost profile. |
 
 ### Platforms & Infrastructure
 
@@ -91,7 +93,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 Each **blip** is a tool, plugin, technique, or platform relevant to Claude Code developers. Its **ring** reflects our assessment of its current maturity and adoption. **Notes** provide brief context.
 
-This is opinionated and point-in-time (last updated: 2026-03-16). Blips move between rings as the ecosystem evolves.
+This is opinionated and point-in-time (last updated: 2026-06-01). Blips move between rings as the ecosystem evolves.
 
 ## What's On vs Off the Radar
 
@@ -152,6 +154,12 @@ Sources referenced when placing or updating blips on this radar.
 27. [The Decoder: Anthropic turns Claude Code into a background worker](https://the-decoder.com/anthropic-turns-claude-code-into-a-background-worker-with-local-scheduled-tasks/) — Coverage of scheduled tasks / /loop feature informing Assess placement
 28. [Voice mode "no speech detected" GitHub issue #30904](https://github.com/anthropics/claude-code/issues/30904) — Known bug (hardcoded disabled flag) informing Voice Mode Assess placement
 29. [Releasebot: Claude Code March 2026 release notes](https://releasebot.io/updates/anthropic/claude-code) — Aggregated March 2026 changelog informing HTTP hooks and voice mode notes
+30. [Claude Code v2.1.154 release notes](https://github.com/anthropics/claude-code/releases) — Opus 4.8 as new default model, Dynamic Workflows launch, security-guidance plugin (May 28, 2026)
+31. [Claude Code v2.1.157 release notes](https://github.com/anthropics/claude-code/releases) — Plugin auto-loading from `.claude/skills`, `claude plugin init` scaffolding (May 29, 2026)
+32. [Anthropic model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations) — Sonnet 4 and Opus 4 retirement June 15, 2026; current active model lineup
+33. [Code with Claude SF 2026 recap (Simon Willison)](https://simonwillison.net/2026/May/6/code-w-claude-2026/) — Advisor Tool public beta, Managed Agents memory, self-hosted sandboxes announcements
+34. [MCP specification RC / roadmap](https://modelcontextprotocol.io/development/roadmap) — RC spec locked May 21, 2026; stateless HTTP, ttlMs caching, MCP Apps/Tasks extensions
+35. [Claude Code hooks complete reference 2026](https://thepromptshelf.dev/blog/claude-code-hooks-complete-reference-2026/) — MessageDisplay hook and SessionStart enhancements confirmed in May 2026 docs; 27+ distinct hook events
 
 ## License
 
