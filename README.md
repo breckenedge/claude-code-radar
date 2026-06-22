@@ -30,7 +30,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| [Claude Code](https://github.com/anthropics/claude-code) | Adopt | The reference agentic coding CLI. Largest ecosystem, most active development. npm install deprecated; native installer (no Node.js/npm dependency) is now recommended — run `claude install` or use the install script. |
+| [Claude Code](https://github.com/anthropics/claude-code) | Adopt | The reference agentic coding CLI. Largest ecosystem, most active development. npm install deprecated; native installer (no Node.js/npm dependency) is now recommended — run `claude install` or use the install script. June 2026 additions: `/cd` switches session to a new working directory mid-conversation while preserving prompt cache; `--safe-mode` starts Claude Code with all customizations disabled (useful for troubleshooting hooks/plugins); `/usage` breaks down what's driving plan limits by skill/subagent/MCP server. |
 | [GitHub Copilot](https://github.com/features/copilot) | Adopt | Ubiquitous autocomplete layer. Complements Claude Code well for inline suggestions. Claude is now available as a Copilot agent for Pro+ and Enterprise customers (Feb 2026). |
 | [OpenAI Codex CLI](https://github.com/openai/codex) | Adopt | Invaluable for multi-agent reviews. `codex review` + Claude Code gives you cross-model code review out of the box. |
 | [Cowork](https://claude.com/blog/cowork-research-preview) | Assess | Claude Code adapted for general-purpose computing. Very early. |
@@ -41,7 +41,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. MCP Elicitation (v2.1.76, March 2026) enables servers to request structured user input mid-task via an interactive dialog. 2026 roadmap priorities: stateless Streamable HTTP transport, enterprise auth/audit, Linux Foundation governance, and MCP Apps extension for interactive UI components in conversations. |
+| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. MCP Elicitation (v2.1.76, March 2026) enables servers to request structured user input mid-task via an interactive dialog. 2026 roadmap priorities: stateless Streamable HTTP transport, enterprise auth/audit, Linux Foundation governance, and MCP Apps extension for interactive UI components in conversations. Stateless HTTP transport spec RC expected July 28, 2026. Security watch (June 2026): researchers demonstrated MCP traffic can be redirected to attacker infrastructure to intercept OAuth tokens — no patch announced; isolate MCP servers in network segments and rotate credentials regularly. |
 | [Claude Code Plugin System](https://github.com/anthropics/claude-code/blob/main/plugins/README.md) | Trial | 9,000+ plugins across marketplaces. API still evolving. |
 | [Anthropic Official Plugin Directory](https://github.com/anthropics/claude-plugins-official) | Trial | Curated, blessed plugins. Smaller but higher quality bar. |
 | [ClaudePluginHub](https://www.claudepluginhub.com/) | Trial | Largest third-party marketplace. Discovery UX maturing. |
@@ -55,17 +55,17 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 |------|------|-------|
 | [CLAUDE.md Project Instructions](https://code.claude.com/docs/en/claude-md) | Adopt | De facto standard for project-level agent configuration. Supply chain risk: researcher-disclosed CVEs showed malicious repos could use project-scoped config files (CLAUDE.md, .mcp.json) to trigger RCE before trust prompts appeared (CVE-2025-59536, CVE-2026-21852, patched 2025–26). Always verify repo trust before opening with Claude Code. |
 | [Hooks](https://code.claude.com/docs/en/hooks) | Adopt | Stable, well-documented. Standard for CI/build integration. Now supports four handler types: command (shell), HTTP (POST JSON to a URL), prompt (LLM-evaluated decision), and agent (subagent with tools). HTTP hooks enable webhook integrations without shell scripts. Recent additions (v2.1.76): `PostCompact` fires after context compaction; `Elicitation`/`ElicitationResult` hooks can intercept and override MCP server input requests. Note: hooks in project config files were a supply chain RCE vector (CVE-2025-59536, patched in v1.0.111+). |
-| Multi-agent Task Delegation | Trial | Spawning sub-agents for parallel work. Effective but needs orchestration discipline. Native git worktree isolation (v2.1.49+) significantly reduces conflicts when running parallel agents — see Git Worktree Isolation below. |
+| Multi-agent Task Delegation | Trial | Spawning sub-agents for parallel work. Effective but needs orchestration discipline. Native git worktree isolation (v2.1.49+) significantly reduces conflicts when running parallel agents — see Git Worktree Isolation below. As of June 2026, sub-agents can spawn their own sub-agents up to 5 levels deep, enabling more complex orchestration trees without external scaffolding. |
 | Git Worktree Isolation | Trial | Running agents in isolated git worktrees with `--worktree` flag or `isolation: worktree` in agent definitions. Ships natively as of v2.1.49 (Feb 2026). Eliminates file conflicts between parallel agents; `WorktreeCreate`/`WorktreeRemove` hooks extend support to non-git VCS. `ExitWorktree` tool added (v2.1.72) for clean session teardown. `worktree.sparsePaths` setting (v2.1.76) enables git sparse-checkout integration for large monorepos. The right default for any multi-agent workload. |
 | Specialized Plugin Stacks | Trial | Separate agent configs per domain (frontend, backend, security). Gaining traction. |
 | README-driven Development | Trial | Using Claude Code to iterate on design docs before implementation. Meta. |
-| Headless / CI Mode | Trial | Running Claude Code non-interactively via `claude -p`. Growing adoption but auth is a pain point — `setup-token` scoping is [buggy](https://github.com/anthropics/claude-code/issues/23703), most teams fall back to API keys in CI. |
+| Headless / CI Mode | Trial | Running Claude Code non-interactively via `claude -p`. Growing adoption but auth is a pain point — `setup-token` scoping is [buggy](https://github.com/anthropics/claude-code/issues/23703), most teams fall back to API keys in CI. Economics uncertainty: Anthropic announced then paused (June 15, 2026) a plan to move Agent SDK/`claude -p` usage into a separate monthly credit pool — monitor official docs before building production pipelines around programmatic usage. |
 | Prompt Caching & Context Management | Adopt | Essential. Built into the platform. Every serious user manages context and caching. |
 | Human-in-the-loop Agent Review | Trial | Reviewing agent-generated code before committing. Most teams already do this informally. |
 | /compact & Context Window Management | Adopt | Essential power-user technique. Everyone hits context limits; knowing when to compact is a core skill. |
 | Docker Dev Containers + Claude Code | Trial | Common local setup pattern. Reproducible, isolated agent environments. |
 | Context Hygiene / .claudeignore | Adopt | Scoping what the agent sees. Narrow git scopes, ignore patterns, workspace-per-feature. Essential for large repos. |
-| Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems. Mixing models to balance cost and quality. |
+| Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems. Mixing models to balance cost and quality. New `fallbackModel` config enables automatic failover across up to 3 models — useful when one tier hits rate limits. Fable 5 (Mythos-class, 1M context, 128K output) is now available as the highest-capability tier for Max, Team, and Enterprise plans. |
 | Agent-driven Test Generation | Trial | Using Claude Code to generate tests, then human review. Accelerates coverage without blind trust. |
 | Session Replay / Audit Trails | Assess | Tracking what agents changed and why. Important for team accountability. Tooling still immature. |
 | Voice Mode | Assess | Native `/voice` command (hold Space to record, Whisper STT) shipped in v2.1.71 (Mar 2026) with gradual rollout to 5% of users. Has known bugs in early builds — transcription pipeline disabled in some releases. Community MCP alternatives (e.g., VoiceMode MCP) are more stable today. Too early for daily use but worth watching. |
@@ -82,7 +82,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | [GitHub Actions + Claude Code](https://github.com/anthropics/claude-code-action) | Trial | CI/CD integration for automated code review and PR generation. Reached v1.0 GA (Feb 2026) with breaking changes from beta; migration guide available. Simplified configuration, automatic mode detection, structured JSON outputs. Worth adopting for greenfield CI workflows now. |
 | [Xcode + Claude (via MCP)](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk) | Assess | Apple's MCP adoption in Xcode 26.3. Very early but significant for Claude Code users building native apps. |
 | Cloud-hosted Agent Fleets | Assess | Running multiple Claude Code instances in cloud for parallel tasks. Coming up fast but still early for small teams. |
-| [Claude Max / Pro / Team Subscriptions](https://claude.com/pricing) | Adopt | The economics of agent coding. Individual devs and small teams pay through Max or Pro plans. As of Jan 2026, Claude Code is included with every Team plan standard seat ($20/month). As of March 2026: Opus 4.6's 1M token context window is now active by default for Max, Team, and Enterprise plans. |
+| [Claude Max / Pro / Team Subscriptions](https://claude.com/pricing) | Adopt | The economics of agent coding. Individual devs and small teams pay through Max or Pro plans. As of Jan 2026, Claude Code is included with every Team plan standard seat ($20/month). As of March 2026: Opus 4.6's 1M token context window is now active by default for Max, Team, and Enterprise plans. As of June 2026: Auto mode (previously Max-only) extended to Pro plan (Sonnet 4.6), reducing cost for everyday tasks. Fable 5 is now the top model tier for Max/Team/Enterprise. |
 | [Claude in Chrome](https://code.claude.com/docs/en/chrome) | Assess | Browser automation from Claude Code via the Claude Chrome extension (Beta). Claude can navigate pages, click, fill forms, read console logs, and capture screenshots directly from the CLI or VS Code. Works with any site you're already logged into. Paid-only; supports Chrome and Edge. Interesting for build-test-debug loops. |
 
 ---
@@ -91,7 +91,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 Each **blip** is a tool, plugin, technique, or platform relevant to Claude Code developers. Its **ring** reflects our assessment of its current maturity and adoption. **Notes** provide brief context.
 
-This is opinionated and point-in-time (last updated: 2026-03-16). Blips move between rings as the ecosystem evolves.
+This is opinionated and point-in-time (last updated: 2026-06-22). Blips move between rings as the ecosystem evolves.
 
 ## What's On vs Off the Radar
 
@@ -152,6 +152,10 @@ Sources referenced when placing or updating blips on this radar.
 27. [The Decoder: Anthropic turns Claude Code into a background worker](https://the-decoder.com/anthropic-turns-claude-code-into-a-background-worker-with-local-scheduled-tasks/) — Coverage of scheduled tasks / /loop feature informing Assess placement
 28. [Voice mode "no speech detected" GitHub issue #30904](https://github.com/anthropics/claude-code/issues/30904) — Known bug (hardcoded disabled flag) informing Voice Mode Assess placement
 29. [Releasebot: Claude Code March 2026 release notes](https://releasebot.io/updates/anthropic/claude-code) — Aggregated March 2026 changelog informing HTTP hooks and voice mode notes
+30. [Claude Code Docs — What's New](https://code.claude.com/docs/en/whats-new) — Source for June 2026 feature additions: `/cd`, `--safe-mode`, `/usage`, `fallbackModel` config, sub-agent nesting, and auto mode on Pro
+31. [CSO Online: Claude Code MCP security problem](https://www.csoonline.com/article/4181230/claude-code-has-an-mcp-security-problem-and-your-developers-are-already-using-it.html) — Mitiga Labs research on MCP traffic hijacking; OAuth token interception with no patch announced, informing MCP security note
+32. [InfoQ: Claude Fable 5 Release (June 2026)](https://www.infoq.com/news/2026/06/claude-5-release/) — Fable 5 (Mythos-class) model availability; informing Model Switching Strategies and Max/Pro/Team blip updates
+33. [Phoenix Security: Claude Code CVEs (June 2026)](https://phoenix.security/claude-code-leak-to-vulnerability-three-cves-in-claude-code-cli-and-the-chain-that-connects-them/) — CVE-2026-54316 (WebFetch data exfiltration) and related Claude Code CLI vulnerabilities discovered June 2026
 
 ## License
 
