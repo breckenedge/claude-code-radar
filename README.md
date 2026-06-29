@@ -41,7 +41,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 | Blip | Ring | Notes |
 |------|------|-------|
-| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. MCP Elicitation (v2.1.76, March 2026) enables servers to request structured user input mid-task via an interactive dialog. 2026 roadmap priorities: stateless Streamable HTTP transport, enterprise auth/audit, Linux Foundation governance, and MCP Apps extension for interactive UI components in conversations. |
+| [MCP (Model Context Protocol)](https://modelcontextprotocol.io) | Adopt | Open standard by Anthropic. Widely adopted across editors and platforms. MCP Elicitation (v2.1.76, March 2026) enables servers to request structured user input mid-task via an interactive dialog. 2026 roadmap priorities: stateless Streamable HTTP transport, enterprise auth/audit, Linux Foundation governance, and MCP Apps extension for interactive UI components in conversations. v2.1.186 (June 2026) adds `claude mcp login <name>` / `claude mcp logout <name>` CLI commands for authenticating MCP servers without interactive menus, plus improved OAuth with automatic reconnect on 401/403. |
 | [Claude Code Plugin System](https://github.com/anthropics/claude-code/blob/main/plugins/README.md) | Trial | 9,000+ plugins across marketplaces. API still evolving. |
 | [Anthropic Official Plugin Directory](https://github.com/anthropics/claude-plugins-official) | Trial | Curated, blessed plugins. Smaller but higher quality bar. |
 | [ClaudePluginHub](https://www.claudepluginhub.com/) | Trial | Largest third-party marketplace. Discovery UX maturing. |
@@ -65,7 +65,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | /compact & Context Window Management | Adopt | Essential power-user technique. Everyone hits context limits; knowing when to compact is a core skill. |
 | Docker Dev Containers + Claude Code | Trial | Common local setup pattern. Reproducible, isolated agent environments. |
 | Context Hygiene / .claudeignore | Adopt | Scoping what the agent sees. Narrow git scopes, ignore patterns, workspace-per-feature. Essential for large repos. |
-| Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems. Mixing models to balance cost and quality. |
+| Model Switching Strategies | Trial | Haiku for quick passes, Sonnet for daily work, Opus for hard problems, Fable 5 for complex multi-step reasoning with extended thinking. Mixing models to balance cost and quality — note Fable 5 (June 2026) requires usage credits rather than being included in plan prices, so reserve it for tasks that genuinely need it. |
 | Agent-driven Test Generation | Trial | Using Claude Code to generate tests, then human review. Accelerates coverage without blind trust. |
 | Session Replay / Audit Trails | Assess | Tracking what agents changed and why. Important for team accountability. Tooling still immature. |
 | Voice Mode | Assess | Native `/voice` command (hold Space to record, Whisper STT) shipped in v2.1.71 (Mar 2026) with gradual rollout to 5% of users. Has known bugs in early builds — transcription pipeline disabled in some releases. Community MCP alternatives (e.g., VoiceMode MCP) are more stable today. Too early for daily use but worth watching. |
@@ -78,11 +78,11 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 | Blip | Ring | Notes |
 |------|------|-------|
 | [VS Code + Claude Code Extension](https://code.claude.com/docs/en/vs-code) | Trial | Multi-agent support as of Feb 2026. Promising but buggy — extension host crashes, memory issues, rough terminal-to-UI handoff. |
-| [JetBrains + Claude Code Plugin](https://plugins.jetbrains.com/plugin/27310-claude-code-beta-) | Trial | Beta quality. Functional but less mature than VS Code integration. |
+| [JetBrains + Claude Code Plugin](https://plugins.jetbrains.com/plugin/27310-claude-code-beta-) | Trial | Beta quality. Functional but less mature than VS Code integration. As of June 22, 2026, Claude is also available as a [Copilot agent provider in JetBrains IDEs](https://github.blog/changelog/2026-06-22-new-features-and-claude-as-agent-provider-preview-in-jetbrains-ides/) (public preview, requires GitHub Copilot Business/Enterprise) — install Claude Code CLI, configure its path, and select Claude from the Copilot agent picker. Currently runs in bypass permissions mode (all edits auto-approved); configurable permissions planned. |
 | [GitHub Actions + Claude Code](https://github.com/anthropics/claude-code-action) | Trial | CI/CD integration for automated code review and PR generation. Reached v1.0 GA (Feb 2026) with breaking changes from beta; migration guide available. Simplified configuration, automatic mode detection, structured JSON outputs. Worth adopting for greenfield CI workflows now. |
 | [Xcode + Claude (via MCP)](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk) | Assess | Apple's MCP adoption in Xcode 26.3. Very early but significant for Claude Code users building native apps. |
 | Cloud-hosted Agent Fleets | Assess | Running multiple Claude Code instances in cloud for parallel tasks. Coming up fast but still early for small teams. |
-| [Claude Max / Pro / Team Subscriptions](https://claude.com/pricing) | Adopt | The economics of agent coding. Individual devs and small teams pay through Max or Pro plans. As of Jan 2026, Claude Code is included with every Team plan standard seat ($20/month). As of March 2026: Opus 4.6's 1M token context window is now active by default for Max, Team, and Enterprise plans. |
+| [Claude Max / Pro / Team Subscriptions](https://claude.com/pricing) | Adopt | The economics of agent coding. Individual devs and small teams pay through Max or Pro plans. As of Jan 2026, Claude Code is included with every Team plan standard seat ($20/month). As of March 2026: Opus 4.6's 1M token context window is now active by default for Max, Team, and Enterprise plans. Fable 5 (launched June 9, 2026) brings always-on adaptive thinking and 128K output tokens, but requires usage credits rather than being included in plan prices (changed June 23, 2026) — factor this into cost budgeting for heavy agent workloads. |
 | [Claude in Chrome](https://code.claude.com/docs/en/chrome) | Assess | Browser automation from Claude Code via the Claude Chrome extension (Beta). Claude can navigate pages, click, fill forms, read console logs, and capture screenshots directly from the CLI or VS Code. Works with any site you're already logged into. Paid-only; supports Chrome and Edge. Interesting for build-test-debug loops. |
 
 ---
@@ -91,7 +91,7 @@ Inspired by [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar).
 
 Each **blip** is a tool, plugin, technique, or platform relevant to Claude Code developers. Its **ring** reflects our assessment of its current maturity and adoption. **Notes** provide brief context.
 
-This is opinionated and point-in-time (last updated: 2026-03-16). Blips move between rings as the ecosystem evolves.
+This is opinionated and point-in-time (last updated: 2026-06-29). Blips move between rings as the ecosystem evolves.
 
 ## What's On vs Off the Radar
 
@@ -152,6 +152,10 @@ Sources referenced when placing or updating blips on this radar.
 27. [The Decoder: Anthropic turns Claude Code into a background worker](https://the-decoder.com/anthropic-turns-claude-code-into-a-background-worker-with-local-scheduled-tasks/) — Coverage of scheduled tasks / /loop feature informing Assess placement
 28. [Voice mode "no speech detected" GitHub issue #30904](https://github.com/anthropics/claude-code/issues/30904) — Known bug (hardcoded disabled flag) informing Voice Mode Assess placement
 29. [Releasebot: Claude Code March 2026 release notes](https://releasebot.io/updates/anthropic/claude-code) — Aggregated March 2026 changelog informing HTTP hooks and voice mode notes
+30. [GitHub Changelog: Claude as agent provider in JetBrains IDEs (June 22, 2026)](https://github.blog/changelog/2026-06-22-new-features-and-claude-as-agent-provider-preview-in-jetbrains-ides/) — Claude Code CLI as Copilot agent backend for JetBrains, informing JetBrains blip notes update
+31. [Claude Code releases v2.1.186–v2.1.195 (June 22–26, 2026)](https://github.com/anthropics/claude-code/releases) — MCP `login`/`logout` CLI commands, OAuth improvements, voice dictation fixes, hook matcher fix for hyphenated identifiers
+32. [Releasebot: Claude Code June 2026 release notes](https://releasebot.io/updates/anthropic/claude-code) — Aggregated June 2026 changelog informing MCP auth and Fable 5 blip updates
+33. [Anthropic: Fable 5 pricing and plan changes (June 23, 2026)](https://claude.com/pricing) — Fable 5 switched to usage-credits billing rather than plan-included access, informing Subscriptions and Model Switching notes
 
 ## License
 
